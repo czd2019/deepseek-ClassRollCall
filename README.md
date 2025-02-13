@@ -10,6 +10,13 @@ DeepSeek-ClassRollCall 旨在简化教师日常工作中的一项重要任务—
 windows:
 1. 下载result.html并双击运行。
 2. 根据需要调整提示词模板prompt文件。
-3. 运行程序开始自动生成点名列表。
+3. 将提示词放入deepseek中并提问,获得新的运行程序代码。
+
+macOS:
+1. 下载vscode
+2. 安装live server插件
+3. 新建项目
+4. 拉取项目代码
+5. 运行result.html文件
   
 欢迎对教育技术感兴趣的开发者加入我们，共同改进和完善这个项目！
