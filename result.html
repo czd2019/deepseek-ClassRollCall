@@ -1,0 +1,163 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>陈老师课堂点名</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 20px;
+            border: 3px solid white;
+        }
+
+        #nameDisplay {
+            height: 200px;
+            margin: 40px 0;
+            font-size: 3em;
+            color: #333;
+            background: rgba(255,255,255,0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        #nameDisplay.selected {
+            font-size: 4em;
+            color: #0066cc;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.5em;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+            background: #ff1493;
+        }
+
+        .speed-control {
+            margin-top: 30px;
+            background: rgba(255,255,255,0.8);
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        input[type="range"] {
+            width: 200px;
+            margin: 0 10px;
+            accent-color: #ff69b4;
+        }
+
+        .decorative {
+            position: fixed;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎀 陈老师课堂提问随机点名 🎀</h1>
+        
+        <div id="nameDisplay">🎉 准备就绪</div>
+        
+        <button id="startBtn">🌈 开始抽问</button>
+        
+        <div class="speed-control">
+            <span>🐌</span>
+            <input type="range" id="speed" min="50" max="200" value="100">
+            <span>🚀</span>
+            <br>
+            <span style="color: #666;">滚动速度调节</span>
+        </div>
+    </div>
+
+    <script>
+        const names = [
+            '任浩宇', '赵悦节', '卢锐',
+            '库区', '开水', '同时', '生产'
+        ];
+
+        let isRunning = false;
+        let intervalId = null;
+        const nameDisplay = document.getElementById('nameDisplay');
+        const startBtn = document.getElementById('startBtn');
+        const speedControl = document.getElementById('speed');
+
+        function getRandomName() {
+            return names[Math.floor(Math.random() * names.length)];
+        }
+
+        function updateName() {
+            nameDisplay.textContent = getRandomName();
+        }
+
+        startBtn.addEventListener('click', () => {
+            if (!isRunning) {
+                isRunning = true;
+                startBtn.textContent = '🛑 停止抽问';
+                nameDisplay.classList.remove('selected');
+                
+                intervalId = setInterval(updateName, speedControl.value);
+            } else {
+                isRunning = false;
+                startBtn.textContent = '🌈 开始抽问';
+                clearInterval(intervalId);
+                nameDisplay.classList.add('selected');
+            }
+        });
+
+        speedControl.addEventListener('input', () => {
+            if (isRunning) {
+                clearInterval(intervalId);
+                intervalId = setInterval(updateName, speedControl.value);
+            }
+        });
+
+        // 添加一些随机装饰元素
+        for (let i = 0; i < 20; i++) {
+            const decor = document.createElement('div');
+            decor.className = 'decorative';
+            decor.style.left = Math.random() * 100 + 'vw';
+            decor.style.top = Math.random() * 100 + 'vh';
+            decor.style.fontSize = (Math.random() * 30 + 20) + 'px';
+            decor.textContent = Math.random() > 0.5 ? '🌸' : '🎀';
+            document.body.appendChild(decor);
+        }
+    </script>
+</body>
+</html>
+```
